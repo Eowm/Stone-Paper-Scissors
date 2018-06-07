@@ -1,10 +1,10 @@
 
 
 <!--
-Copyright (c) 2018 by Eowm (https://codepen.io/eowm/pen/RJamOv)
+Copyright (c) 2018 by Eowm (https://codepen.io/eowm/pen/wXvpGv)
 
 
-Fork of an original work by Eowm (https://codepen.io/eowm/pen/deEQgx)
+Fork of an original work by Eowm (https://codepen.io/eowm/pen/GdLBLW)
 
 
 
