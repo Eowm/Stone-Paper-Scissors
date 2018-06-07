@@ -1,0 +1,33 @@
+#root {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.box {
+	margin: 30px auto;
+	width: 200px;
+	border: 1px solid #000;
+	min-height: 100px;
+	text-align: center;
+	vertical-align: top;
+  opacity: 0.7;
+}
+
+header {
+		display: block;
+		border-bottom: 1px solid #000;
+    height: 30px;
+	}
+
+.highlighted {
+  background-color: blue;
+}
+
+.special-header {
+  background-color: yellow;
+}
+
+.important {
+  opacity: 1;
+}
