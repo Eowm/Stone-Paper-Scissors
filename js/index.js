@@ -19,7 +19,7 @@ userMove('paper') });
 
 
 
-
+/*
 var showModal = function(event){
     event.preventDefault();
     document.querySelector('#modal-overlay').classList.add('show');
@@ -38,7 +38,7 @@ var showModal = function(event){
   
   for(var i = 0; i < closeButtons.length; i++){
     closeButtons[i].addEventListener('click', hideModal);
-  }
+  };
   document.querySelector('#modal-overlay').addEventListener('click', hideModal);
   var modals = document.querySelectorAll('.modal');
   
@@ -46,8 +46,8 @@ var showModal = function(event){
     modals[i].addEventListener('click', function(event){
       event.stopPropagation();
     });
-  }
-
+  };
+*/
 
 
 
