@@ -4,60 +4,48 @@
 <head>
   <meta charset="UTF-8">
   <title>Kamien Papier nożyce ex 3 mod 8</title>
-  
-  
-  
       <link rel="stylesheet" href="css/style.css">
-
-  
 </head>
 
 <body>
+	<div class="result">
+    	<div class= "head">
+      		Result:
+    	</div>
+    	<div id="results">
+    	</div>
+	</div>
 
-  <div class="result">
-    <div class= "head">
-      Result:
-    </div>
-    <div id="results">
-    </div>
-</div>
+	<div class="round">
+    	<div class= "head">
+        	Round:
+      	</div>
+      	<div id="rounds">
+      	</div>
+  	</div>
 
-  <div class="round">
-      <div class= "head">
-        Round:
-      </div>
-      <div id="rounds">
-      </div>
-  </div>
+  	<a href="#" class="show-modal">Show modal</a>
 
-<div class="buttons">
-	<button id="rock" class="rock">Rock</button>
-  <button id="scissors" class="scisors">Scissors</button>
-  <button id="paper" class="paper"> Paper</button>
-  <div id="output">
-  </div>
-  <div>
-  <button id="newGame">New Game</button>
-  </div>
-</div>
+	<div class="buttons">
+		<button id="rock" class="rock player-move" data-move="rock">Rock</button>
+  		<button id="scissors" class="scisors player-move" data-move="scissors">Scissors</button>
+  		<button id="paper" class="paper player-move" data-move="paper"> Paper</button>
+  		<div id="output">
+  		</div>
+  		<div>
+  		<button id="newGame">New Game</button>
+  		</div>
+	</div>
 
-
-
-<div class="endGame">
-    <div class= "headRounds">
-      Nr Of Rounds
-    </div>
-    <div id="roundsNr">
-    </div>
-</div>
+	<div class="endGame">
+    	<div class= "headRounds">
+      		Nr Of Rounds
+    	</div>
+    	<div id="roundsNr">
+    	</div>
+	</div>
   
-  
-
     <script  src="js/index.js"></script>
 
-
-
-
 </body>
-
 </html>

@@ -5,6 +5,7 @@ var compResult = 0;
 var round = 0;
 var nrOfRounds = 0;
 
+//pobieranie przycisku
 var buttonRock = document.getElementById("rock");
 var buttonScissors = document.getElementById("scissors");
 var buttonPaper = document.getElementById("paper");
@@ -16,12 +17,62 @@ userMove('scissors')});
 buttonPaper.addEventListener('click', function() { 
 userMove('paper') });
 
+
+
+
+var showModal = function(event){
+    event.preventDefault();
+    document.querySelector('#modal-overlay').classList.add('show');
+  };
+  var modalLinks = document.querySelectorAll('.show-modal');
+  
+  for(var i = 0; i < modalLinks.length; i++){
+    modalLinks[i].addEventListener('click', showModal);
+  }
+  var hideModal = function(event){
+    event.preventDefault();
+    document.querySelector('#modal-overlay').classList.remove('show');
+  };
+  
+  var closeButtons = document.querySelectorAll('.modal .close');
+  
+  for(var i = 0; i < closeButtons.length; i++){
+    closeButtons[i].addEventListener('click', hideModal);
+  }
+  document.querySelector('#modal-overlay').addEventListener('click', hideModal);
+  var modals = document.querySelectorAll('.modal');
+  
+  for(var i = 0; i < modals.length; i++){
+    modals[i].addEventListener('click', function(event){
+      event.stopPropagation();
+    });
+  }
+
+
+
+
+
+
+
+var moves  = document.querySelectorAll('.player-move');
+
+for(var i = 0; i<moves.length; i++){
+  moves[i] = userMove(element.getAttribute(data-move));
+}
+
+var params = {playerResult: 0,compResult: 0,round: 0,nrOfRound: 0} 
+
+
+//blokowanie przyciskow
 var disabledButtons = function(value) {
   buttonRock.disabled = value; 
   buttonPaper.disabled = value; 
   buttonScissors.disabled = value;
 };
 
+  disabledButtons(true);
+
+//resetowanie wynikow
 var endGame = function() {
   playerResult = 0;
   compResult = 0;
@@ -34,6 +85,7 @@ var endGame = function() {
   roundsNr.innerHTML = ('');
 } 
 
+//start gry
 var newGame = function() {
   endGame();
   disabledButtons(false);
@@ -47,11 +99,13 @@ var newGame = function() {
   return nrOfRounds;
 }
 
+//ruch kompa
 var whatCompMove = function() {
   var possiblePicks = ['rock', 'scissors', 'paper'];
   return possiblePicks[Math.floor(Math.random() * 3)];
 }
   
+//ruch gracza
 var userMove = function(move) {
   var userWin = false;
   var compWin = false;
@@ -89,6 +143,7 @@ var userMove = function(move) {
   result(userWin, compWin, draw, move, compMove);
 }
   
+  //sprawdzanie wynikow, dodawanie punkotów, wypisywanie wynikow
 var result = function(userWin, compWin, draw, userMove, compMove) {
   if (draw) {
     output.insertAdjacentHTML('afterbegin', '</br>' + ('Its a draw'));
@@ -103,10 +158,12 @@ var result = function(userWin, compWin, draw, userMove, compMove) {
     round +=1;
   }
   
+  //wynik
   var overalResult = function() {
     results.insertAdjacentHTML('afterbegin', '</br>' + (playerResult + " to " + compResult));
   }
 
+  //liczba rund
   var nrRound = function() {
     rounds.insertAdjacentHTML('afterbegin', '</br>' + (round));
   }
@@ -114,6 +171,7 @@ var result = function(userWin, compWin, draw, userMove, compMove) {
   overalResult();
   nrRound();
   
+  //sprawdzanie konca gry
   if (round == nrOfRounds) {
     if (compResult > playerResult) {
       output.insertAdjacentHTML('afterbegin','YOU LOST! </br>');
@@ -126,6 +184,7 @@ var result = function(userWin, compWin, draw, userMove, compMove) {
   }  
 }
 
+//przycisk nowa gra
 var btnNewGame = document.getElementById("newGame");
 
 btnNewGame.addEventListener('click', function() {
