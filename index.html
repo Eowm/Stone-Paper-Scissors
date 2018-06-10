@@ -16,8 +16,7 @@
     	</div>
 	</div>
 
-	<a href="#" class="show-modal">Show modal</a>
-
+	
 	<div class="round">
     	<div class= "head">
         	Round:
@@ -25,6 +24,9 @@
       	<div id="rounds">
       	</div>
   	</div>
+
+  <!--<a href="#" class="show-modal">Show modal</a> -->
+
 
 	<div class="buttons">
 		<button id="rock" class="rock player-move" data-move="rock">Rock</button>
@@ -45,15 +47,36 @@
     	</div>
 	</div>
 
-	<div class="overlay" id="modal-overlay">
-		<div class="modal">
-			<a href="#" class="close">x</a>
-			<header>Lorem ipsum</header>
+	<div class="overlay" id="win">
+		<div class="modal win">
+			<a href="#" id="data" class="close">x</a>
+			<header>You Won!</header>
 			<div class="content">
-				<p>Dolor sit amet!</p>
+				<p>Congratulations You won!</p>
+			</div>
+		</div>
+
+		<div class="overlay" id="lost">
+			<div class="modal lost">
+				<a href="#" id="data" class="close">x</a>
+				<header>You Lost:( !</header>
+				<div class="content">
+					<p>You lost, try one more time!</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="overlay" id="draw">
+			<div class="modal draw">
+				<a href="#" id="data" class="close">x</a>
+				<header>It'a a draw</header>
+				<div class="content">
+					<p>The game has ended wit a draw, try one more time!</p>
+				</div>
 			</div>
 		</div>
 	</div>
+
   
     <script  src="js/index.js"></script>
 

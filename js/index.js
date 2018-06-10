@@ -20,27 +20,23 @@ userMove('paper') });
 
 var moves  = document.querySelectorAll('.player-move');
 
-for(var i = 0; i<moves.length; i++){
-  moves[i] = userMove(element.getAttribute(data-move));
-}
+//for(var i = 0; i<moves.length; i++){
+  //moves[i] = userMove(element.getAttribute(data-move));
+//}
 
 
 
 
-
-
+var modalsWin = function(){
 var showModal = function(event){
     event.preventDefault();
-    document.querySelector('#modal-overlay').classList.add('show');
+    document.querySelector('#win').classList.add('show');
   };
-  var modalLinks = document.querySelectorAll('.show-modal');
-  
-  for(var i = 0; i < modalLinks.length; i++){
-    modalLinks[i].addEventListener('click', showModal);
-  }
+
+  showModal(event);
   var hideModal = function(event){
     event.preventDefault();
-    document.querySelector('#modal-overlay').classList.remove('show');
+    document.querySelector('#win').classList.remove('show');
   };
   
   var closeButtons = document.querySelectorAll('.modal .close');
@@ -48,14 +44,71 @@ var showModal = function(event){
   for(var i = 0; i < closeButtons.length; i++){
     closeButtons[i].addEventListener('click', hideModal);
   }
-  document.querySelector('#modal-overlay').addEventListener('click', hideModal);
+  document.querySelector('#win').addEventListener('click', hideModal);
   var modals = document.querySelectorAll('.modal');
   
   for(var i = 0; i < modals.length; i++){
     modals[i].addEventListener('click', function(event){
-      event.stopPropagation();
+     event.stopPropagation();
     });
   }
+}
+
+var modalsLost = function(){
+var showModal = function(event){
+    event.preventDefault();
+    document.querySelector('#lost').classList.add('show');
+  };
+
+  showModal(event);
+  var hideModal = function(event){
+    event.preventDefault();
+    document.querySelector('#lost').classList.remove('show');
+  };
+  
+  var closeButtons = document.querySelectorAll('.modal .close');
+  
+  for(var i = 0; i < closeButtons.length; i++){
+    closeButtons[i].addEventListener('click', hideModal);
+  }
+  document.querySelector('#lost').addEventListener('click', hideModal);
+  var modals = document.querySelectorAll('.modal');
+  
+  for(var i = 0; i < modals.length; i++){
+    modals[i].addEventListener('click', function(event){
+     event.stopPropagation();
+    });
+  }
+}
+
+var modalsDraw = function(){
+var showModal = function(event){
+    event.preventDefault();
+    document.querySelector('#draw').classList.add('show');
+  };
+
+  showModal(event);
+  var hideModal = function(event){
+    event.preventDefault();
+    document.querySelector('#draw').classList.remove('show');
+  };
+  
+  var closeButtons = document.querySelectorAll('.modal .close');
+  
+  for(var i = 0; i < closeButtons.length; i++){
+    closeButtons[i].addEventListener('click', hideModal);
+  }
+  document.querySelector('#draw').addEventListener('click', hideModal);
+  var modals = document.querySelectorAll('.modal');
+  
+  for(var i = 0; i < modals.length; i++){
+    modals[i].addEventListener('click', function(event){
+     event.stopPropagation();
+    });
+  }
+}
+
+
 
 
 
@@ -178,11 +231,14 @@ var result = function(userWin, compWin, draw, userMove, compMove) {
   //sprawdzanie konca gry
   if (round == nrOfRounds) {
     if (compResult > playerResult) {//
-      output.insertAdjacentHTML('afterbegin','YOU LOST! </br>');
+     // output.insertAdjacentHTML('afterbegin','YOU LOST! </br>');
+        modalsLost();
     } else if (compResult == playerResult) {
-        output.insertAdjacentHTML('afterbegin','ITs A DRAW </br>');
+     //   output.insertAdjacentHTML('afterbegin','ITs A DRAW </br>');
+        modalsDraw();
       } else {
-        output.insertAdjacentHTML('afterbegin','YOU WON! </br>');
+    //    output.insertAdjacentHTML('afterbegin','YOU WON! </br>');
+        modalsWin();
       }
     disabledButtons(true);
   }  
