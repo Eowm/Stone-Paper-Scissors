@@ -2,6 +2,8 @@
 var output = document.getElementById('output');
 
 
+
+
 //pobieranie przycisku
 var buttonRock = document.getElementById("rock");
 var buttonScissors = document.getElementById("scissors");
@@ -9,14 +11,18 @@ var buttonPaper = document.getElementById("paper");
 var moves  = document.querySelectorAll('.player-move');
 var playerMoveClassLength = moves.length;
 
-buttonRock.addEventListener('click', function() {
+/*buttonRock.addEventListener('click', function() {
 userMove('rock') });
 buttonScissors.addEventListener('click', function() {
 userMove('scissors')});
 buttonPaper.addEventListener('click', function() { 
-userMove('paper') });
+userMove('paper') });*/
 
-
+for (var i = 0; i < playerMoveClassLength; i++) {
+    moves[i].addEventListener('click', function () {  
+        userMove(this.getAttribute('data-move'));
+    });
+  } 
 
 
 
@@ -32,11 +38,7 @@ var params = {
   } 
 
 
-  for (var i = 0; i < playerMoveClassLength; i++) {
-    moves[i].addEventListener('click', function () {  
-        userMove(this.getAttribute('data-move'));
-    });
-  } 
+  
 
 
 var modalsWin = function(){
