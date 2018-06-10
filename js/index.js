@@ -1,14 +1,13 @@
 'use strict';
 var output = document.getElementById('output');
-var playerResult = 0;
-var compResult = 0;
-var round = 0;
-var nrOfRounds = 0;
+
 
 //pobieranie przycisku
 var buttonRock = document.getElementById("rock");
 var buttonScissors = document.getElementById("scissors");
 var buttonPaper = document.getElementById("paper");
+var moves  = document.querySelectorAll('.player-move');
+var playerMoveClassLength = moves.length;
 
 buttonRock.addEventListener('click', function() {
 userMove('rock') });
@@ -18,13 +17,26 @@ buttonPaper.addEventListener('click', function() {
 userMove('paper') });
 
 
-var moves  = document.querySelectorAll('.player-move');
-
-//for(var i = 0; i<moves.length; i++){
-  //moves[i] = userMove(element.getAttribute(data-move));
-//}
 
 
+
+
+//global variables
+var params = {
+    playerResult: 0,
+    compResult: 0,
+    round: 0, 
+    endGame: true,
+    nrOfRounds: 0,
+    progress: [] 
+  } 
+
+
+  for (var i = 0; i < playerMoveClassLength; i++) {
+    moves[i].addEventListener('click', function () {  
+        userMove(this.getAttribute('data-move'));
+    });
+  } 
 
 
 var modalsWin = function(){
@@ -111,15 +123,6 @@ var showModal = function(event){
 
 
 
-
-
-
-
-
-
-//var params = {playerResult: 0,compResult: 0,round: 0,nrOfRound: 0} 
-
-
 //blokowanie przyciskow
 var disabledButtons = function(value) {
   buttonRock.disabled = value; 
@@ -131,11 +134,13 @@ var disabledButtons = function(value) {
 
 //resetowanie wynikow
 var endGame = function() {
-  playerResult = 0;
-  compResult = 0;
-  round = 0;
-  nrOfRounds = 0;
+  params.playerResult = 0;
+  params.compResult = 0;
+  params.round = 0;
+  params.nrOfRounds = 0;
+  params.progress = [];
   
+  params.progress = [];
   output.innerHTML = ('');
   results.innerHTML = ('');
   rounds.innerHTML = ('');
@@ -147,13 +152,13 @@ var newGame = function() {
   endGame();
   disabledButtons(false);
   
-  nrOfRounds = window.prompt('How many rounds would You like to play?');
-  if (isNaN(nrOfRounds) || nrOfRounds ==='' || nrOfRounds === null){
+  params.nrOfRounds = window.prompt('How many rounds would You like to play?');
+  if (isNaN(params.nrOfRounds) || params.nrOfRounds ==='' || params.nrOfRounds === null){
     output.innerHTML = 'Wrong Value. Try one more time';
     lineBreak();
   }
-  roundsNr.innerHTML = nrOfRounds;
-  return nrOfRounds;
+  roundsNr.innerHTML = params.nrOfRounds;
+  return params.nrOfRounds;
 }
 
 //ruch kompa
@@ -204,36 +209,47 @@ var userMove = function(move) {
 var result = function(userWin, compWin, draw, userMove, compMove) {
   if (draw) {
     output.insertAdjacentHTML('afterbegin', '</br>' + ('Its a draw'));
-    round +=1;
+    params.round +=1;
   } else if (userWin) {
     output.insertAdjacentHTML('afterbegin', '</br>' + ('YOU WON!!! with ' + userMove + ' against ' +         compMove));
-    playerResult += 1;
-    round +=1;
+    params.playerResult += 1;
+    params.round +=1;
   } else {
     output.insertAdjacentHTML('afterbegin', '</br>' + ('You have lost with ' + userMove + ' against ' +       compMove));
-    compResult +=1;
-    round +=1;
+    params.compResult +=1;
+    params.round +=1;
   }
   
   //wynik
   var overalResult = function() {
-    results.insertAdjacentHTML('afterbegin', '</br>' + (playerResult + " to " + compResult));
+    results.insertAdjacentHTML('afterbegin', '</br>' + (params.playerResult + " to " + params.compResult));
   }
 
   //liczba rund
   var nrRound = function() {
-    rounds.insertAdjacentHTML('afterbegin', '</br>' + (round));
+    rounds.insertAdjacentHTML('afterbegin', '</br>' + (params.round));
   }
   
   overalResult();
   nrRound();
+
+   // this object return to params.progress actuall result the game
+    var object = {
+        MatchRounds: params.round,
+        MatchPlayerResult: params.playerResult,
+        MatchComputerResult: params.compResult,
+        FinallyResult: params.UserMove + ' - ' + params.compMove
+    };
+    params.progress.push(object);
+
+    // this table build tr in tbody table
   
   //sprawdzanie konca gry
-  if (round == nrOfRounds) {
-    if (compResult > playerResult) {//
+  if (params.round == params.nrOfRounds) {
+    if (params.compResult > params.playerResult) {//
      // output.insertAdjacentHTML('afterbegin','YOU LOST! </br>');
         modalsLost();
-    } else if (compResult == playerResult) {
+    } else if (params.compResult == params.playerResult) {
      //   output.insertAdjacentHTML('afterbegin','ITs A DRAW </br>');
         modalsDraw();
       } else {
