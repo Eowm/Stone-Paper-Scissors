@@ -28,7 +28,7 @@ var params = {
     round: 0, 
     endGame: true,
     nrOfRounds: 0,
-    progress: [] 
+    progress: []
   } 
 
 
@@ -242,7 +242,6 @@ var result = function(userWin, compWin, draw, userMove, compMove) {
     };
     params.progress.push(object);
 
-    // this table build tr in tbody table
   
   //sprawdzanie konca gry
   if (params.round == params.nrOfRounds) {
