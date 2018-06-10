@@ -26,7 +26,6 @@ for (var i = 0; i < playerMoveClassLength; i++) {
 
 
 
-
 //global variables
 var params = {
     playerResult: 0,
@@ -35,10 +34,7 @@ var params = {
     endGame: true,
     nrOfRounds: 0,
     progress: []
-  } 
-
-
-  
+  }   
 
 
 var modalsWin = function(){
@@ -66,6 +62,7 @@ var showModal = function(event){
      event.stopPropagation();
     });
   }
+  buildTable();
 }
 
 var modalsLost = function(){
@@ -93,6 +90,7 @@ var showModal = function(event){
      event.stopPropagation();
     });
   }
+  buildTable();
 }
 
 var modalsDraw = function(){
@@ -120,6 +118,7 @@ var showModal = function(event){
      event.stopPropagation();
     });
   }
+  buildTable();
 }
 
 
@@ -162,6 +161,24 @@ var newGame = function() {
   roundsNr.innerHTML = params.nrOfRounds;
   return params.nrOfRounds;
 }
+
+  var buildTable = function() {
+    var tbody = document.querySelector('tbody');
+    params.progress.forEach(function(progressResult) {
+        var row = document.createElement('tr');
+        tbody.appendChild(row);
+        for (var key in progressResult) {
+            buildTableTd(progressResult[key], row);
+        }
+    })
+};
+
+// this function build td in table
+var buildTableTd = function(value, row) {
+    var td = document.createElement('td');
+    td.innerHTML = value;
+    row.appendChild(td);
+};
 
 //ruch kompa
 var whatCompMove = function() {
@@ -238,11 +255,14 @@ var result = function(userWin, compWin, draw, userMove, compMove) {
    // this object return to params.progress actuall result the game
     var object = {
         MatchRounds: params.round,
-        MatchPlayerResult: params.playerResult,
-        MatchComputerResult: params.compResult,
-        FinallyResult: params.UserMove + ' - ' + params.compMove
+        MatchPlayerMove: userMove,
+        MatchComputerMove: compMove,
+        FinallyResult: params.playerResult + ' - ' + params.compResult
     };
     params.progress.push(object);
+
+
+
 
   
   //sprawdzanie konca gry
