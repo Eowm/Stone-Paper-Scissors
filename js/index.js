@@ -8,7 +8,7 @@ var output = document.getElementById('output');
 var buttonRock = document.getElementById("rock");
 var buttonScissors = document.getElementById("scissors");
 var buttonPaper = document.getElementById("paper");
-var moves  = document.querySelectorAll('.player-move');
+var moves = document.querySelectorAll('.player-move');
 var playerMoveClassLength = moves.length;
 
 /*buttonRock.addEventListener('click', function() {
@@ -19,10 +19,10 @@ buttonPaper.addEventListener('click', function() {
 userMove('paper') });*/
 
 for (var i = 0; i < playerMoveClassLength; i++) {
-    moves[i].addEventListener('click', function () {  
+    moves[i].addEventListener('click', function() {
         userMove(this.getAttribute('data-move'));
     });
-  } 
+}
 
 
 
@@ -30,140 +30,67 @@ for (var i = 0; i < playerMoveClassLength; i++) {
 var params = {
     playerResult: 0,
     compResult: 0,
-    round: 0, 
+    round: 0,
     endGame: true,
     nrOfRounds: 0,
     progress: []
-  }   
-
-
-var modalsWin = function(){
-var showModal = function(event){
-    event.preventDefault();
-    document.querySelector('#win').classList.add('show');
-  };
-
-  showModal(event);
-  var hideModal = function(event){
-    event.preventDefault();
-    document.querySelector('#win').classList.remove('show');
-  };
-  
-  var closeButtons = document.querySelectorAll('.modal .close');
-  
-  for(var i = 0; i < closeButtons.length; i++){
-    closeButtons[i].addEventListener('click', hideModal);
-  }
-  document.querySelector('#win').addEventListener('click', hideModal);
-  var modals = document.querySelectorAll('.modal');
-  
-  for(var i = 0; i < modals.length; i++){
-    modals[i].addEventListener('click', function(event){
-     event.stopPropagation();
-    });
-  }
-  buildTable();
 }
 
-var modalsLost = function(){
-var showModal = function(event){
-    event.preventDefault();
-    document.querySelector('#lost').classList.add('show');
-  };
-
-  showModal(event);
-  var hideModal = function(event){
-    event.preventDefault();
-    document.querySelector('#lost').classList.remove('show');
-  };
-  
-  var closeButtons = document.querySelectorAll('.modal .close');
-  
-  for(var i = 0; i < closeButtons.length; i++){
-    closeButtons[i].addEventListener('click', hideModal);
-  }
-  document.querySelector('#lost').addEventListener('click', hideModal);
-  var modals = document.querySelectorAll('.modal');
-  
-  for(var i = 0; i < modals.length; i++){
-    modals[i].addEventListener('click', function(event){
-     event.stopPropagation();
-    });
-  }
-  buildTable();
-}
-
-var modalsDraw = function(){
-var showModal = function(event){
-    event.preventDefault();
-    document.querySelector('#draw').classList.add('show');
-  };
-
-  showModal(event);
-  var hideModal = function(event){
-    event.preventDefault();
-    document.querySelector('#draw').classList.remove('show');
-  };
-  
-  var closeButtons = document.querySelectorAll('.modal .close');
-  
-  for(var i = 0; i < closeButtons.length; i++){
-    closeButtons[i].addEventListener('click', hideModal);
-  }
-  document.querySelector('#draw').addEventListener('click', hideModal);
-  var modals = document.querySelectorAll('.modal');
-  
-  for(var i = 0; i < modals.length; i++){
-    modals[i].addEventListener('click', function(event){
-     event.stopPropagation();
-    });
-  }
-  buildTable();
-}
-
-
-
-
-//blokowanie przyciskow
-var disabledButtons = function(value) {
-  buttonRock.disabled = value; 
-  buttonPaper.disabled = value; 
-  buttonScissors.disabled = value;
+var showModal = function(selector) {
+    document.querySelector('#'+selector).classList.add('show');
+    buildTable(selector);
 };
 
-  disabledButtons(true);
+var hideModal = function(selector) {
+    document.querySelector(selector).classList.remove('show');
+};
+
+var closeButtons = document.querySelectorAll('.modal');
+
+for (var i = 0; i < closeButtons.length; i++) {
+    closeButtons[i].addEventListener('click', function(event) {
+        hideModal('#' + event.currentTarget.className.split(' ')[1]);
+    });
+}
+
+//blokowanie przyciskow
+var disabledButtons = function(isDisabled) {
+    buttonRock.disabled = isDisabled;
+    buttonPaper.disabled = isDisabled;
+    buttonScissors.disabled = isDisabled;
+};
+
+disabledButtons(true);
 
 //resetowanie wynikow
 var endGame = function() {
-  params.playerResult = 0;
-  params.compResult = 0;
-  params.round = 0;
-  params.nrOfRounds = 0;
-  params.progress = [];
-  
-  params.progress = [];
-  output.innerHTML = ('');
-  results.innerHTML = ('');
-  rounds.innerHTML = ('');
-  roundsNr.innerHTML = ('');
-} 
+    params.playerResult = 0;
+    params.compResult = 0;
+    params.round = 0;
+    params.nrOfRounds = 0;
+
+    params.progress = [];
+    output.innerHTML = '';
+    results.innerHTML = '';
+    rounds.innerHTML = '';
+    roundsNr.innerHTML = '';
+}
 
 //start gry
 var newGame = function() {
-  endGame();
-  disabledButtons(false);
-  
-  params.nrOfRounds = window.prompt('How many rounds would You like to play?');
-  if (isNaN(params.nrOfRounds) || params.nrOfRounds ==='' || params.nrOfRounds === null){
-    output.innerHTML = 'Wrong Value. Try one more time';
-    lineBreak();
-  }
-  roundsNr.innerHTML = params.nrOfRounds;
-  return params.nrOfRounds;
+
+    endGame();
+    disabledButtons(false);
+
+    params.nrOfRounds = window.prompt('How many rounds would You like to play?');
+    if (isNaN(params.nrOfRounds) || params.nrOfRounds === '' || params.nrOfRounds === null || params.nrOfRounds < 1) {
+        return output.innerHTML = 'Wrong Value. Try one more time';
+    }
+    roundsNr.innerHTML = params.nrOfRounds;
 }
 
-  var buildTable = function() {
-    var tbody = document.querySelector('tbody');
+var buildTable = function(selector) {
+    var tbody = document.querySelector('#tbody-' + selector);
     params.progress.forEach(function(progressResult) {
         var row = document.createElement('tr');
         tbody.appendChild(row);
@@ -182,108 +109,104 @@ var buildTableTd = function(value, row) {
 
 //ruch kompa
 var whatCompMove = function() {
-  var possiblePicks = ['rock', 'scissors', 'paper'];
-  return possiblePicks[Math.floor(Math.random() * 3)];
+    var possiblePicks = ['rock', 'scissors', 'paper'];
+    return possiblePicks[Math.floor(Math.random() * 3)];
 }
-  
+
 //ruch gracza
 var userMove = function(move) {
-  var userWin = false;
-  var compWin = false;
-  var draw = false;
-  var compMove = whatCompMove();
-   switch(compMove) {
-    case 'rock' :
-      if (move == 'rock') {
-        draw = true;
-      } else if (move == 'scissors') {
-        compWin = true;
-      } else {
-        userWin = true;
-      }
-    break;
-    case 'scissors' :
-      if (move == 'rock') {
-        userWin = true;
-      } else if (move == 'scissors') {
-        draw = true;
-      } else {
-        compWin = true;
-      }
-    break;
-    case 'paper' :
-      if (move == 'rock') {
-        compWin = true;
-      } else if (move == 'scissors') {
-        userWin = true;
-      } else {
-        draw = true;
-      }
-    break;
+    var userWin = false;
+    var compWin = false;
+    var draw = false;
+    var compMove = whatCompMove();
+    switch (compMove) {
+        case 'rock':
+            if (move == 'rock') {
+                draw = true;
+            } else if (move == 'scissors') {
+                compWin = true;
+            } else {
+                userWin = true;
+            }
+            break;
+        case 'scissors':
+            if (move == 'rock') {
+                userWin = true;
+            } else if (move == 'scissors') {
+                draw = true;
+            } else {
+                compWin = true;
+            }
+            break;
+        case 'paper':
+            if (move == 'rock') {
+                compWin = true;
+            } else if (move == 'scissors') {
+                userWin = true;
+            } else {
+                draw = true;
+            }
+            break;
     }
-  result(userWin, compWin, draw, move, compMove);
+    result(userWin, compWin, draw, move, compMove);
 }
-  
-  //sprawdzanie wynikow, dodawanie punkotów, wypisywanie wynikow
+
+//wynik
+    var overalResult = function() {
+        results.insertAdjacentHTML('afterbegin', '</br>' + (params.playerResult + " to " + params.compResult));
+    }
+
+    //liczba rund
+    var nrRound = function() {
+        rounds.insertAdjacentHTML('afterbegin', '</br>' + (params.round));
+    }
+
+//sprawdzanie wynikow, dodawanie punkotów, wypisywanie wynikow
 var result = function(userWin, compWin, draw, userMove, compMove) {
-  if (draw) {
-    output.insertAdjacentHTML('afterbegin', '</br>' + ('Its a draw'));
-    params.round +=1;
-  } else if (userWin) {
-    output.insertAdjacentHTML('afterbegin', '</br>' + ('YOU WON!!! with ' + userMove + ' against ' +         compMove));
-    params.playerResult += 1;
-    params.round +=1;
-  } else {
-    output.insertAdjacentHTML('afterbegin', '</br>' + ('You have lost with ' + userMove + ' against ' +       compMove));
-    params.compResult +=1;
-    params.round +=1;
-  }
-  
-  //wynik
-  var overalResult = function() {
-    results.insertAdjacentHTML('afterbegin', '</br>' + (params.playerResult + " to " + params.compResult));
-  }
+    if (draw) {
+        output.insertAdjacentHTML('afterbegin', '</br>' + ('Its a draw'));
+        params.round += 1;
+    } else if (userWin) {
+        output.insertAdjacentHTML('afterbegin', '</br>' + ('YOU WON!!! with ' + userMove + ' against ' + compMove));
+        params.playerResult += 1;
+        params.round += 1;
+    } else {
+        output.insertAdjacentHTML('afterbegin', '</br>' + ('You have lost with ' + userMove + ' against ' + compMove));
+        params.compResult += 1;
+        params.round += 1;
+    }
 
-  //liczba rund
-  var nrRound = function() {
-    rounds.insertAdjacentHTML('afterbegin', '</br>' + (params.round));
-  }
-  
-  overalResult();
-  nrRound();
+    overalResult();
+    nrRound();
 
-   // this object return to params.progress actuall result the game
-    var object = {
-        MatchRounds: params.round,
-        MatchPlayerMove: userMove,
-        MatchComputerMove: compMove,
-        FinallyResult: params.playerResult + ' - ' + params.compResult
-    };
-    params.progress.push(object);
+    // this object return to params.progress actuall result the gam
+    params.progress.push({
+        gameRounds: params.round,
+        gamePlayerMove: userMove,
+        gameComputerMove: compMove,
+        finalResult: params.playerResult + ' - ' + params.compResult
+    });
 
 
-
-
-  
-  //sprawdzanie konca gry
-  if (params.round == params.nrOfRounds) {
-    if (params.compResult > params.playerResult) {//
-     // output.insertAdjacentHTML('afterbegin','YOU LOST! </br>');
-        modalsLost();
-    } else if (params.compResult == params.playerResult) {
-     //   output.insertAdjacentHTML('afterbegin','ITs A DRAW </br>');
-        modalsDraw();
-      } else {
-    //    output.insertAdjacentHTML('afterbegin','YOU WON! </br>');
-        modalsWin();
-      }
-    disabledButtons(true);
-  }  
+    //sprawdzanie konca gry
+    if (params.round == params.nrOfRounds) {
+        if (params.compResult > params.playerResult) { //
+            // output.insertAdjacentHTML('afterbegin','YOU LOST! </br>');
+            showModal('lost');
+        } else if (params.compResult == params.playerResult) {
+            //   output.insertAdjacentHTML('afterbegin','ITs A DRAW </br>');
+            showModal('draw');
+        } else {
+            //    output.insertAdjacentHTML('afterbegin','YOU WON! </br>');
+            showModal('win');
+        }
+        disabledButtons(true);
+    }
 }
 
 //przycisk nowa gra
 var btnNewGame = document.getElementById("newGame");
 
 btnNewGame.addEventListener('click', function() {
-  newGame()
-} )
+    newGame()
+})
