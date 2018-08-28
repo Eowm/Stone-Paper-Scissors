@@ -86,7 +86,6 @@ var newGame = function() {
     if (isNaN(params.nrOfRounds) || params.nrOfRounds === '' || params.nrOfRounds === null || params.nrOfRounds < 1) {
         return output.innerHTML = 'Wrong Value. Try one more time';
     }
-    roundsNr.innerHTML = params.nrOfRounds;
 }
 
 var buildTable = function(selector) {
@@ -153,25 +152,24 @@ var userMove = function(move) {
 
 //wynik
     var overalResult = function() {
-        results.insertAdjacentHTML('afterbegin', '</br>' + (params.playerResult + " to " + params.compResult));
     }
-
     //liczba rund
     var nrRound = function() {
-        rounds.insertAdjacentHTML('afterbegin', '</br>' + (params.round));
     }
 
 //sprawdzanie wynikow, dodawanie punkotów, wypisywanie wynikow
 var result = function(userWin, compWin, draw, userMove, compMove) {
+    var outputRound = params.round + 1;
     if (draw) {
-        output.insertAdjacentHTML('afterbegin', '</br>' + ('Its a draw'));
+        output.insertAdjacentHTML('afterbegin', '</br>' + 'Its a draw Round: ' +  outputRound + '  Result: ' + params.playerResult + ' - ' + params.compResult);
         params.round += 1;
     } else if (userWin) {
-        output.insertAdjacentHTML('afterbegin', '</br>' + ('YOU WON!!! with ' + userMove + ' against ' + compMove));
+        
+        output.insertAdjacentHTML('afterbegin', '</br>' + 'YOU WON!!! with ' + userMove + ' against ' + compMove + ' Round: ' + outputRound + '  Result: ' + params.playerResult + ' - ' + params.compResult);
         params.playerResult += 1;
         params.round += 1;
     } else {
-        output.insertAdjacentHTML('afterbegin', '</br>' + ('You have lost with ' + userMove + ' against ' + compMove));
+        output.insertAdjacentHTML('afterbegin', '</br>' + 'You have lost with ' + userMove + ' against ' + compMove  + ' Round: ' + outputRound + '  Result: ' + params.playerResult + ' - ' + params.compResult);
         params.compResult += 1;
         params.round += 1;
     }

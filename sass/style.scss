@@ -1,50 +1,54 @@
+*{
+  box-sizing: border-box;
+}
+
 body {
   display: flex;
   justify-content: center;
   text-align: center;
-  background-color: #1A1C1D;
+  background-color: grey;
+  .text{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+  }
 }
 
 button {
-  background-color:#15C2FA;
-  width: 150px;
-  height: 50px;
+  background-color: grey;
   margin: 20px;
   cursor: pointer;
-  border: 3px solid grey;
-  font-size: 20px;
-}
-
-button:hover {
-  background-color: yellow;
+  border: none;
+  i{
+    font-size: 100px;
+    color: black;
+    &:hover{
+      color: #123456;
+    }
+  }
 }
 
 #output {
   font-size: 20px;
   text-align: center;
-  background-color: white;
 }
 
 .result {
-  background-color: white;
   font-size: 20px;
-  border: 2px solid black;
   margin-top: 3%;
   height: 50%;
 }
 
 .head {
-      background-color: #15C2FA;
-      border-bottom: 2px solid black;
       width: 90px;
       height: 30px;
     }
     
-.round {
-  background-color: white;
+.round {  
   width: 90px;
   font-size: 20px;
-  border: 2px solid black;
   margin-top: 3%;
   margin-right: 5%;
   height: 50%;
@@ -56,20 +60,15 @@ button:hover {
 }
 
 .endGame {
-  background-color: white;
   font-size: 20px;
-  border: 2px solid black;
   margin-top: 3%;
   height: 50%;
   margin-left: 5%;
 }
 
 .headRounds {
-  width: 200px;
-  background-color: #15C2FA;
-  border-bottom: 2px solid black;
+  width: 200px;  
   height: 30px;
-  
 }
 
 
@@ -97,7 +96,7 @@ button:hover {
 }
 
 .modal {
-  background: #fff;
+  background: #123456;
   width: 500px;
   position: absolute;
   top: 50%;
