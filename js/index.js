@@ -86,6 +86,9 @@ var newGame = function() {
     if (isNaN(params.nrOfRounds) || params.nrOfRounds === '' || params.nrOfRounds === null || params.nrOfRounds < 1) {
         return output.innerHTML = 'Wrong Value. Try one more time';
     }
+
+    output.insertAdjacentHTML('afterbegin', 'GAME STARTED!' + "</br>");
+
 }
 
 var buildTable = function(selector) {
@@ -159,19 +162,20 @@ var userMove = function(move) {
 
 //sprawdzanie wynikow, dodawanie punkotów, wypisywanie wynikow
 var result = function(userWin, compWin, draw, userMove, compMove) {
-    var outputRound = params.round + 1;
     if (draw) {
-        output.insertAdjacentHTML('afterbegin', '</br>' + 'Its a draw Round: ' +  outputRound + '  Result: ' + params.playerResult + ' - ' + params.compResult);
         params.round += 1;
-    } else if (userWin) {
+        output.insertAdjacentHTML('beforeend', '</br>' + 'Its a draw Round: ' +  params.round + '  Result: ' + params.playerResult + ' - ' + params.compResult);
         
-        output.insertAdjacentHTML('afterbegin', '</br>' + 'YOU WON!!! with ' + userMove + ' against ' + compMove + ' Round: ' + outputRound + '  Result: ' + params.playerResult + ' - ' + params.compResult);
+    } else if (userWin) {
         params.playerResult += 1;
         params.round += 1;
+        output.insertAdjacentHTML('beforeend', '</br>' + 'YOU WON!!! with ' + userMove + ' against ' + compMove + ' Round: ' + params.round + '  Result: ' + params.playerResult + ' - ' + params.compResult);
+        
     } else {
-        output.insertAdjacentHTML('afterbegin', '</br>' + 'You have lost with ' + userMove + ' against ' + compMove  + ' Round: ' + outputRound + '  Result: ' + params.playerResult + ' - ' + params.compResult);
         params.compResult += 1;
         params.round += 1;
+        output.insertAdjacentHTML('beforeend', '</br>' + 'You have lost with ' + userMove + ' against ' + compMove  + ' Round: ' + params.round + '  Result: ' + params.playerResult + ' - ' + params.compResult);
+        
     }
 
     overalResult();
