@@ -9,6 +9,11 @@ body {
   background-color: grey;
 }
 
+body h1 {
+  text-align: center;
+  display: inline;
+}
+
 body .text {
   position: absolute;
   top: 0;
